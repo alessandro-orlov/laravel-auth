@@ -6,6 +6,18 @@
           <div class="col">
             <h1>Add an article</h1>
 
+            {{-- Validazione form --}}
+            @if ($errors->any())
+              <div class="alert alert-danger">
+                <ul>
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+              </div>
+            @endif
+
+
             <form class="" action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
               @csrf
               @method('POST')
@@ -13,14 +25,14 @@
                 <div class="form-group row">
                     <label for="Title" class="col-md-2 col-form-label text-md-right">Title</label>
                     <div class="col-md-6">
-                        <input type="text" class="form-control " name="title" value="" required=""  autofocus="">
+                        <input type="text" class="form-control " name="title" value="{{old('title')}}" required=""  autofocus="">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="Content" class="col-md-2 col-form-label text-md-right">Content</label>
                     <div class="col-md-6">
-                        <textarea class="form-control" name="content" rows="8" cols="80"></textarea>
+                        <textarea class="form-control" name="content" rows="8" cols="80">{{old('content')}}</textarea>
                     </div>
                 </div>
 

@@ -41,6 +41,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->validationData());
+
         $data = $request->all();
         // dd($data);
 
@@ -106,5 +108,13 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index');
+    }
+
+    public function validationData() {
+      return [
+
+        'title' => 'required|max:255',
+        'content' => 'required',
+      ];
     }
 }

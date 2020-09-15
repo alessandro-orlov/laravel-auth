@@ -27,14 +27,16 @@
                 </div>
               @endif
 
-              <div class="img-box">
-                @if (strpos($post->img_path,'lorempixel'))
-                    <img src="{{$post->img_path}}" alt="{{$post->title}}">
-                  @else
-                    <img src=" {{ asset('storage') . '/' . $post->img_path }} " alt="{{$post->title}}">
-                @endif
+              @if (!empty($post->img_path))
+                <div class="img-box">
+                  @if (strpos($post->img_path,'lorempixel'))
+                      <img src="{{$post->img_path}}" alt="{{$post->title}}">
+                    @else
+                      <img src=" {{ asset('storage') . '/' . $post->img_path }} " alt="{{$post->title}}">
+                  @endif
+                </div>
+              @endif
 
-              </div>
               <p>
                 {{$post->content}}
               </p>

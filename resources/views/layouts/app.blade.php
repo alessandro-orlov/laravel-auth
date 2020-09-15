@@ -18,6 +18,18 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .img-box {
+          width: 640px;
+        }
+        .img-box img {
+          width: 100%;
+          margin: 10px 0 20px;
+        }
+        .ms_controls {
+          margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -58,7 +70,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('admin.posts.index')}}">I tuoi articoli</a>
+                                    <a class="dropdown-item" href="{{route('admin.posts.create')}}">Create new article</a>
+                                    <a class="dropdown-item" href="{{route('admin.posts.index')}}">Your articles</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

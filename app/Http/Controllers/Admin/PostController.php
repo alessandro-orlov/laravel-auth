@@ -16,7 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
         $user = Auth::user();
 
         return view('admin.posts.index', compact('posts', 'user'));
@@ -29,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -40,7 +41,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+
+        $new_post = new Post();
+        $new_post->user_id = $id = Auth::id();
+        $new_post->title = $data['title'];
+        $new_post->content = $data['content'];
+
+        if (isset($data['img_path'])) {
+          $path = $request->file('img_path')->store('img', 'public');
+          $new_post->img_path = $path;
+        }
+
+        $new_post->save();
+
+        return redirect()->route('posts.show', $new_post);
     }
 
     /**
@@ -49,9 +65,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        $user = Auth::user();
+        // dd(strpos($post->img_path,'lorempixel'));
+        return view('admin.posts.show', compact('post', 'user'));
     }
 
     /**
@@ -83,8 +101,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('posts.index');
     }
 }

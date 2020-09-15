@@ -8,7 +8,7 @@
               <h1>Posts</h1>
 
               @foreach ($posts as $post)
-                <h4><a href="{{route('posts.show', $post)}}">{{$post->title}}</a></h4>
+                <h4><a href="{{ $user == null ? route('posts.show', $post) : route('admin.posts.show', $post) }}">{{$post->title}}</a></h4>
               @endforeach
 
           </div>

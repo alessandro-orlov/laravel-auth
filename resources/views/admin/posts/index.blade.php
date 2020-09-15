@@ -9,8 +9,8 @@
 
               <h3>Lista dei toui articoli</h3>
               <ul>
-                @foreach ($posts as $post)
-                  <li>{{$post->created_at->format('d/m/Y')}} - <b>{{$post->title}}</b>  by {{$post->user->name}}</li>
+                @foreach ($user->posts as $post)
+                  <li>{{$post->created_at->format('d/m/Y')}} - <b>{{$post->title}}</b>  by {{$post->user->name}} <a href="{{route('admin.posts.show', $post)}}">visualizza</a> </li>
                 @endforeach
               </ul>
           </div>

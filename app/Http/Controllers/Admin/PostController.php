@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\NewPostMail;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -17,7 +19,8 @@ class PostController extends Controller
     public function index()
     {
         // $posts = Post::all();
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        // $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::paginate(5);
         $user = Auth::user();
 
         return view('admin.posts.index', compact('posts', 'user'));
@@ -58,6 +61,11 @@ class PostController extends Controller
 
         $new_post->save();
 
+        // Inviare un email al utente vero:
+        // Mail::to($new_post->user->email)->send(new NewPostMail());
+
+        Mail::to($new_post->user->email)->send(new NewPostMail());
+
         return redirect()->route('posts.show', $new_post);
     }
 
@@ -91,8 +99,6 @@ class PostController extends Controller
         } else {
           abort(403);
         }
-
-
     }
 
     /**

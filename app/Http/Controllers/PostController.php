@@ -11,7 +11,9 @@ class PostController extends Controller
     protected function index()
     {
       // $posts = Post::all();
-      $posts = Post::orderBy('created_at', 'desc')->get();
+      // $posts = Post::orderBy('created_at', 'desc')->get();
+
+      $posts = Post::orderBy('created_at', 'desc')->paginate(5);
       $user = Auth::user();
       // dd($user);
       return view('posts.index', compact('posts', 'user'));

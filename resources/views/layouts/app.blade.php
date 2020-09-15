@@ -29,6 +29,31 @@
         .ms_controls {
           margin: 10px 0;
         }
+        .main-container {
+          box-shadow: 2px 2px 8px 5px #00000021;
+          background-color: #fff;
+          padding: 30px 20px 50px;
+        }
+        .post-list-item {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 10px;
+          border-bottom: 1px solid #ccc;
+        }
+        .list-img {
+          width: 300px;
+        }
+        .list-img img {
+          width: 100%;
+        }
+        .list-desc {
+          padding: 0 20px;
+        }
+        .posts-pagination {
+          margin: 20px auto 10px;
+          display: flex;
+          justify-content: center;
+        }
     </style>
 </head>
 <body>

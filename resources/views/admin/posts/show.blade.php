@@ -18,7 +18,7 @@
               </div>
               @if ($post->user_id == $user->id)
                 <div class="ms_controls">
-                  <a class="btn btn-primary" href="#">edit</a>
+                  <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post) }}">edit</a>
                   <form style="display: inline-block;" action="{{route('admin.posts.destroy', $post)}}" method="post">
                     @csrf
                     @method('DELETE')

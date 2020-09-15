@@ -80,9 +80,19 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $user = Auth::user();
+
+        // Verifico se lo user che sta accedendo alla risorsa
+        // è effettivamente quello che ha creato l'articolo
+        if ($post->user_id == $user->id) {
+          return view('admin.posts.edit', compact('post'));
+        } else {
+          abort(403);
+        }
+
+
     }
 
     /**
@@ -92,9 +102,22 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+      $request->validate($this->validationData());
+      $data = $request->all();
+      // dd($data);
+
+      if (isset($data['img_path'])) {
+        $path = $request->file('img_path')->store('img', 'public');
+        $post->img_path = $path;
+      } else {
+        $post->img_path = '';
+      }
+
+      $post->update();
+
+      return redirect()->route('admin.posts.show', $post);
     }
 
     /**
